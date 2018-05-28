@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> 销售数据分析</title>
+   <!-- ECharts单文件引入 -->
+<script src="echarts/dist/echarts.js"></script>
+<script src="jquery/jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		//获得后台数据
+		var category_data;
+		var soft_data;
+		var net_data;
+		var mobile_data;
+		$.ajax({
+			url:'/Community_one/echarts/EChartsDataServelt',
+			type: 'get',//提交方式
+			data:{val:"1"},
+			dataType: "json",
+			async:false,
+			success: function(data){
+				category_data=data.category;
+				soft_data=data.soft_data;
+
+			}
+			})
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'echarts/dist'
+            }
+        });    
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/bar', // 使用柱状图就加载bar模块，按需加载
+				'echarts/chart/line'
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('sell_data')); 
+                
+                var option = {
+                    tooltip: {//提示框，鼠标悬浮交互时的信息提示
+                        show: true
+                    },
+                     title : {
+        text: '居民职业分布',
+        subtext: '只统计在册人员',
+        x:'left'
+    },
+					
+					toolbox:{//定义工具按钮
+						show : true,
+						feature : {
+							dataView : {show: true, readOnly: false},//数据信息按钮
+							magicType : {show: true, //显示折线、柱状图等切换按钮
+								type: ['line', 'bar','stack', 'tiled']}
+						}
+					},
+                    legend: {//图例
+                        data:['人数']
+                    },
+                    xAxis : [//x轴设置
+                        {
+                            type : 'category',//x轴显示类别
+                            data : category_data//["第一季度","第二季度","第三季度","第四季度"]
+                        }
+                    ],
+                    yAxis : [//y轴设置
+                        {
+                            type : 'value'///y轴显示数据值
+                        }
+                    ],
+                    series : [
+                        {
+                            "name":"人数",
+                            "type":"bar",
+                            "data":soft_data
+                        }
+                    ]
+                };
+        
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+		
+	});
+    </script>
+</head>
+
+<body>
+ <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="sell_data" style="height:400px"></div>
+</body>
+</html>

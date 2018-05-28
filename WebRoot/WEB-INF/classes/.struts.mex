@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="web" location="146,53" size="310,98">
+    <action name="addActivity" location="7,48" size="150,41">
+      <result name="success" />
+    </action>
+    <action name="allActivity" location="151,44" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="index.jsp" />
+      </result>
+    </action>
+  </package>
+  <webResource name="index.jsp" path="/index.jsp" location="500,50" size="150,55" />
+</Struts2Diagram>
+

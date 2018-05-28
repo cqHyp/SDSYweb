@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 来自百度CDN -->
+    <script src="1-6-10.esl.js"></script>
+   
+	<script src="jquery/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px; width:1000px;margin:0 auto;"></div>
+    <script type="text/javascript">
+    	var name_data;
+		var value_data;
+		var data2;
+    
+    $.ajax({
+			url:'/Community_one/echarts/EChartsDataServelt',
+			type: 'post',//提交方式
+			data:{val:"5"},
+			dataType: "json",
+			async:false,
+			success: function(data){
+				name_data=data.name;
+				value_data=data.value;
+				
+				
+			}
+			})
+    
+    
+        // 路径配置
+        require.config({
+            paths:{ 
+                'echarts' : 'echarts',
+                'echarts/chart/pie' : 'echarts'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/pie' // 使用柱状图就加载bar模块，按需加载
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                var option = {
+    title : {
+        text: '房屋租住占比分布图',
+       
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:name_data
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'房屋类别',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data:(function(){
+ 
+                                var res = [];
+                                var len = name_data.length;
+                                while (len--) {
+                                res.push({
+                                name: name_data[len],
+                                value: value_data[len]
+                                });
+                                }
+                                return res;
+                                })()	
+        }	
+    ]
+	
+};
+                    
+                    
+                myChart.setOption(option); 
+            }
+        );
+    </script>              
+</body>
+
+ 

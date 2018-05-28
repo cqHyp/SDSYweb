@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<package name="web" extends="struts-default">
+    <!--                         后台主页                                                                       -->
+    <action name="allActivity" class="webAction" method="allActivity">
+		<result name="success" >/informationlist.jsp</result>
+	</action>
+	
+	<action name="publishActivity" class="webAction" method="publishActivity">
+		<result name="success">/publishActivity.jsp</result>
+	</action>
+	
+	
+	<action name="updateOneActQiandao" class="webAction" method="updateOneActQiandao">
+		<result name="success" type="chain">allActivity</result>
+	</action>
+	
+	<action name="updateOneRecord" class="webAction" method="updateOneRecord">
+		<result name="success" type="chain">allActivity</result>
+	</action>
+	
+	
+	<action name="oneActivity" class="webAction" method="oneActivity">
+		<result name="success" >/article.jsp</result>
+	</action>
+	
+	<action name="toOneActivity" class="webAction" method="toOneActivity">
+		<result name="success" >/updateActivity.jsp</result>
+	</action>
+	
+		<action name="updateActivity" class="webAction" method="updateActivity">
+		<result name="success" >/article.jsp</result>
+	</action>
+	
+	<action name="deleteActivity" class="webAction" method="deleteActivity">
+		<result name="success" type="chain">allActivity</result>
+		<result name="faile">faile.jsp</result>
+	</action>
+	
+		<action name="torecommend" class="webAction" method="torecommend">
+		<result name="success" type="chain">allActivity</result>
+	</action>
+	
+	<action name="Lunbo" class="webAction" method="Lunbo">
+		<result name="success" type="chain">allActivity</result>
+	</action>
+
+
+
+    <!--                             活动管理                                                                                            -->
+    
+     <action name="unLogin" method="unLogin" class="webAction">
+	     <result name="success" >/index.jsp</result>
+     </action>
+    
+	<action name="addActivity" class="webAction" method="addActivity">
+		<result name="success"  type="chain">allActivity</result>
+	</action>
+	
+	<action name="allActItem" class="webAction" method="allActItem">
+		<result name="success">/acModule.jsp</result>
+	</action>
+	
+	<action name="oneActItem" class="webAction" method="oneActItem">
+		<result name="success">/updateDetail.jsp</result>
+	</action>
+	
+	<action name="updateActItem" class="webAction" method="updateActItem">
+		<result name="success" type="chain">allActItem</result>
+	</action>
+	
+	<action name="allAddress" class="webAction" method="allAddress">
+		<result name="success">/addresslist.jsp</result>
+	</action>
+		<action name="oneAddress" class="webAction" method="oneAddress">
+		<result name="success">/updateAddress.jsp</result>
+	</action>
+	<action name="updateAddress" class="webAction" method="updateAddress">
+		<result name="success" type="chain">allAddress</result>
+	</action>
+	<action name="deleteAddress" class="webAction" method="deleteAddress">
+		<result name="success" type="chain">allAddress</result>
+	</action>
+	
+	<action name="allAnnounce" class="webAction" method="allAnnounce">
+		<result name="success">/announcelist.jsp</result>
+	</action>
+	
+	<action name="deleteAnnounce" class="webAction" method="deleteAnnounce">
+		<result name="success" type="chain">allAnnounce</result>
+	</action>
+	<action name="toDownloadgrade" class="excle" method="toDownloadgrade">
+			<result name="success">/downloadgrade.jsp</result>
+	</action>
+	
+	
+	<!-- 推送 -->
+	<action name="addJpush" class="webAction" method="addJpush">
+		<result name="success">/addTuisong.jsp</result>
+	</action>
+	
+	<action name="addJpush1" class="webAction" method="addJpush1">
+		<result name="success">/addTuisong2.jsp </result>
+	</action>
+	<action name="allJpush" class="webAction" method="allJpush">
+		<result name="success">/pushList.jsp </result>
+	</action>
+	<action name="deleteJpush" class="webAction" method="deleteJpush">
+		<result name="success" type="chain">allJpush </result>
+	</action>
+	<!-- 个人中心 -->
+	<action name="updateTeacherPsd" class="webAction" method="updateTeacherPsd">
+		<result name="success">/changePsd.jsp</result>
+	</action>
+	<action name="updateStudentPsd" class="webAction" method="updateStudentPsd">
+		<result name="success">/stuChangePsd.jsp</result>
+	</action>
+	
+	<action name="oneTeacher" class="webAction" method="oneTeacher">
+		<result name="success">/teacherInfo.jsp</result>
+	</action>
+	<action name="toTongji" class="webAction" method="toTongji">
+			<result name="success">/stuCredit.jsp</result>
+	</action>
+
+
+	<action name="addAnnounce" class="webAction" method="addAnnounce">
+		<result name="success" type="chain">allAnnounce</result>
+	</action>
+		<action name="addAnnounceImg" class="webAction" method="addAnnounceImg">
+		<result name="success" type="chain">addAnnounce</result>
+	</action>
+	<action name="addAddress" class="webAction" method="addAddress">
+		<result name="success" type="chain">allAddress</result>
+	</action>
+	<action name="addItem" class="webAction" method="addItem">
+		<result name="success" type="chain">allActItem</result>
+	</action> 
+	
+   <action name="activityTixing" class="webAction" method="activityTixing">
+		<result name="success" type="chain" >allActivity</result>
+	</action>
+	</package>
+	
+	
+	<!--                             表导入和导出接口                                                                            -->
+	
+	<package name="excle" extends="json-default">
+		<action name="oneActRecord" class="webAction" method="oneActRecord">
+		<result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+	</action>
+	
+	<action name="findStudents" class="excle" method="findStudents">
+		<result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+	</action>
+
+		<action name="allActing" class="webAction" method="allActing">
+			<result type="json" name="success">
+				<param name="root">s</param>
+			</result>
+		</action>
+	
+	<action name="toActqiandao" class="webAction" method="toActqiandao">
+		<result type="json" name="success">
+		<param name="root">s</param>
+       </result>
+	</action>
+	
+	<action name="allActRecord" class="webAction" method="allActRecord">
+		<result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+	</action>
+		<action name="allTeacher" class="webAction" method="allTeacher">
+		<result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+       	</action>
+       	<action name="bingTu" class="webAction" method="bingTu">
+		<result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+       	</action>
+       	<action name="bingTu2" class="webAction" method="bingTu2">
+		<result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+       	</action>
+       	
+       <action name="allStudent" class="webAction" method="allStudent">
+		<result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+	</action>
+		
+
+		<action name="updatePsd" class="webAction" method="updatePsd">
+		<result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+		<result type="json" name="faile">
+       <param name="root">s</param>
+       </result>
+	</action>
+	
+	  <action name="login" method="login" class="webAction">
+	     <result type="json">
+        </result>
+     </action>
+      <action name="clearStudents" method="clearStudents" class="webAction">
+	     <result type="json">
+	     </result>
+     </action>
+	      <action name="clearTeachers" method="clearTeachers" class="webAction">
+	     <result type="json">
+	     </result>
+     </action>
+	 <action name="importExcleStudent" method="importExcleStudent" class="excle">
+       <result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+     </action>
+     
+     <action name="importExcleTeacher" method="importExcleTeacher" class="excle">
+       <result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+     </action>
+     
+      <action name="importExcleTeaTime" method="importExcleTeaTime" class="excle">
+       <result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+     </action>
+     
+        <action name="importOldActivity" method="importOldActivity" class="excle">
+       <result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+     </action>
+     
+        <action name="importOldActRecord" method="importOldActRecord" class="excle">
+       <result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+     </action>
+     
+     <action name="exportActStudent" method="exportActStudent" class="excle">
+       <result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+     </action>
+     
+     <action name="exportRecord" method="exportRecord" class="excle">
+       <result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+     </action>
+     <action name="exportTypeRecord" method="exportTypeRecord" class="excle">
+       <result type="json" name="success">
+       </result>
+     </action>
+     
+     <action name="exportStuActRecord" method="exportStuActRecord" class="excle">
+       <result type="json" name="success">
+       <param name="root">s</param>
+       </result>
+     </action>
+     
+       <action name="exportAll" method="exportAll" class="excle">
+       <result type="json" name="success">
+       </result>
+     </action>
+
+		<action name="getStudentsGrade" class="webAction" method="getStudentsGrade">
+			<result type="json" name="success">
+				<param name="root">s</param>
+			</result>
+		</action>
+
+		<action name="modelGrade" class="webAction" method="toTongji">
+			<result name="success">/modelGrade.jsp</result>
+		</action>
+     
+      
+	</package></struts>    

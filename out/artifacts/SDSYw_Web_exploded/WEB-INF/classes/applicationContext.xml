@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+<!-- 定义数据源 -->
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<!-- 指定连接数据库的驱动 -->
+			<property name="driverClassName"
+			value="com.mysql.jdbc.Driver">
+		</property>
+		<property name="url" value="jdbc:mysql://112.74.198.15:3306/shangdeshuyuan?useUnicode=true&amp;characterEncoding=UTF-8"></property>
+		<property name="username" value="cqh"></property>
+		<property name="password" value="123456"></property>
+		
+	</bean>
+	<bean id="mysessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<!-- 配置数据库方言 -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<!-- 输出运行的sql语句 -->
+				<prop key="hibernate.show_sql">
+					true
+				</prop>
+				<prop key="hibernate.format_sql">
+					true
+				</prop>
+			</props>
+		</property>
+		
+		
+		<property name="mappingResources">
+			<list>
+				<value>web/model/Activiting.hbm.xml</value>
+				<value>web/model/Activity.hbm.xml</value>
+				<value>web/model/Students.hbm.xml</value>
+				<value>web/model/Teacher.hbm.xml</value>
+				<value>web/model/Yuyuejingxing.hbm.xml</value>
+				<value>web/model/Yuyuelaoshi.hbm.xml</value>
+				<value>web/model/ActivitingImg.hbm.xml</value>
+				<value>web/model/ActivityImg.hbm.xml</value>
+				<value>web/model/ActivityItem.hbm.xml</value>
+				<value>web/model/ActivityType.hbm.xml</value>
+				<value>web/model/Address.hbm.xml</value>
+				<value>web/model/Announce.hbm.xml</value>
+				<value>web/model/AnnounceImg.hbm.xml</value>
+				<value>web/model/Opinions.hbm.xml</value>
+				<value>web/model/Jpush.hbm.xml</value>
+				</list>
+		</property></bean>
+		
+		<bean id="teacherDaoImp" class="web.dao.imp.TeacherDaoImp">
+		<property name="sessionFactory" ref="mysessionFactory"></property></bean>
+		
+		<bean id="studentDaoImp" class="web.dao.imp.StudentDaoImp">
+		<property name="sessionFactory" ref="mysessionFactory"></property></bean>
+		
+		<bean id="activityDaoImp" class="web.dao.imp.ActivityDaoImp">
+		<property name="sessionFactory" ref="mysessionFactory"></property></bean>
+		
+		<bean id="actImgDaoImp" class="web.dao.imp.ActImgDaoImp">
+		<property name="sessionFactory" ref="mysessionFactory"></property></bean>
+		
+		<bean id="actItemDaoImp" class="web.dao.imp.ActItemDaoImp">
+		<property name="sessionFactory" ref="mysessionFactory"></property></bean>
+		
+		<bean id="actRecordDaoImp" class="web.dao.imp.ActRecordDaoImp">
+		<property name="sessionFactory" ref="mysessionFactory"></property></bean>
+		
+		<bean id="addressDaoImp" class="web.dao.imp.AddressDaoImp">
+		<property name="sessionFactory" ref="mysessionFactory"></property></bean>
+		
+		<bean id="announceDaoImp" class="web.dao.imp.AnnounceDaoImp">
+		<property name="sessionFactory" ref="mysessionFactory"></property></bean>
+		
+		<bean id="announceImgDaoImp" class="web.dao.imp.AnnounceImgDaoImp">
+		<property name="sessionFactory" ref="mysessionFactory"></property></bean>
+		
+		<bean id="appoScheduleDaoImp" class="web.dao.imp.AppoScheduleDaoImp">
+		<property name="sessionFactory" ref="mysessionFactory"></property></bean>
+		
+		<bean id="jpushDaoImp" class="web.dao.imp.JpushDaoImp">
+		<property name="sessionFactory" ref="mysessionFactory"></property></bean>
+		
+		
+		<bean id="webAction" class="web.action.WebAction">
+		
+		<property name="teacherDao" ref="teacherDaoImp"></property>
+		 <property name="studentDao" ref="studentDaoImp"></property>
+		<property name="activityDao" ref="activityDaoImp"></property>
+		<property name="actImgDao" ref="actImgDaoImp"></property>
+		<property name="actItemDao" ref="actItemDaoImp"></property>
+		<property name="actRecordDao" ref="actRecordDaoImp"></property>
+		<property name="addressDao" ref="addressDaoImp"></property>
+		<property name="announceDao" ref="announceDaoImp"></property>
+		<property name="announceImgDao" ref="announceImgDaoImp"></property>
+		<property name="jpushDao" ref="jpushDaoImp"></property>
+		</bean>
+		
+		<bean id="excle" class="web.action.ExcleAction">
+		<property name="activityDao" ref="activityDaoImp"></property>
+		<property name="teacherDao" ref="teacherDaoImp"></property>
+		 <property name="studentDao" ref="studentDaoImp"></property>
+		<property name="actRecordDao" ref="actRecordDaoImp"></property>
+		<property name="appoScheduleDao" ref="appoScheduleDaoImp"></property>
+		
+		</bean>
+
+	</beans>
